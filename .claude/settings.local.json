@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(composer require *)",
+      "Bash(php artisan *)",
+      "Bash(git config *)",
+      "Bash(gh auth *)",
+      "Read(//usr/local/bin/**)",
+      "Read(//opt/homebrew/Cellar/gh/2.92.0/bin/**)"
+    ]
+  }
+}
