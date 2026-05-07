@@ -92,7 +92,7 @@
             <div class="flex items-center">
                 <a href="https://nhbs.sa/" target="_blank" rel="noopener noreferrer">
                     <img alt="NHBS Logo" class="h-12 w-auto object-contain"
-                         src="https://lh3.googleusercontent.com/aida/ADBb0uhaPx5k07KNTlJTBIh80vLfJidz9gR-SAAw_e_j8gBcVEK9I9CpNip7J2DXazl58TOwHKYZ0K35P_ipQCavMyRPicg_-DasOCS615WeIbkY2UslSPf2vKOk6s10DvCthI4ufpWXuqYtfrryqXmdF7X2JyQ_c-bHZeBok-SFLB_QvA2Z02TLbn8v16yiCUx40qLeNSj4bBc2HSNuHeyn0UvqGMTwyedgnhxy0L-9b8vIuq2QoimEIg7vrWb5NNt6wVblA2XDOqOAn0E"/>
+                         src="{{ asset('images/nhbs-logo.png') }}"/>
                 </a>
             </div>
             <nav class="hidden md:flex gap-8">
@@ -111,7 +111,7 @@
             <div class="flex flex-col items-start">
                 <div class="mb-4">
                     <img alt="NHBS Logo" class="h-10 w-auto object-contain"
-                         src="https://lh3.googleusercontent.com/aida/ADBb0uhaPx5k07KNTlJTBIh80vLfJidz9gR-SAAw_e_j8gBcVEK9I9CpNip7J2DXazl58TOwHKYZ0K35P_ipQCavMyRPicg_-DasOCS615WeIbkY2UslSPf2vKOk6s10DvCthI4ufpWXuqYtfrryqXmdF7X2JyQ_c-bHZeBok-SFLB_QvA2Z02TLbn8v16yiCUx40qLeNSj4bBc2HSNuHeyn0UvqGMTwyedgnhxy0L-9b8vIuq2QoimEIg7vrWb5NNt6wVblA2XDOqOAn0E"/>
+                         src="{{ asset('images/nhbs-logo.png') }}"/>
                 </div>
                 <p class="text-slate-500 text-xs uppercase tracking-widest leading-relaxed"></p>
             </div>

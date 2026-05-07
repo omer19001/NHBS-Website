@@ -14,6 +14,21 @@ class ApplicantController extends Controller
 
     public function store(Request $request)
     {
+        // Handle PHP-level upload errors (e.g. file exceeds upload_max_filesize in php.ini)
+        foreach (['cv_path', 'portfolio_path'] as $field) {
+            if ($request->hasFile($field) && $request->file($field)->getError() !== UPLOAD_ERR_OK) {
+                return redirect()->route('applicant.form')
+                    ->withInput()
+                    ->withErrors([$field => 'حدث خطأ أثناء رفع الملف. يرجى التأكد من أن حجم الملف لا يتجاوز الحد المسموح به.']);
+            }
+        }
+
+        // Handle case where POST data is missing due to post_max_size being exceeded
+        if (empty($request->post()) && $request->server('CONTENT_LENGTH') > 0) {
+            return redirect()->route('applicant.form')
+                ->withErrors(['cv_path' => 'حجم الملف المرفوع أكبر من المسموح به. يرجى تقليل حجم الملف والمحاولة مجدداً.']);
+        }
+
         $validated = $request->validate([
             'full_name'        => 'required|string|max:255',
             'email'            => 'required|email|max:255',
@@ -44,15 +59,21 @@ class ApplicantController extends Controller
             'portfolio_path.max'        => 'حجم ملف الأعمال يجب ألا يتجاوز 10 ميجابايت.',
         ]);
 
-        if ($request->hasFile('cv_path')) {
-            $validated['cv_path'] = $request->file('cv_path')->store('cvs', 'public');
-        }
+        try {
+            if ($request->hasFile('cv_path')) {
+                $validated['cv_path'] = $request->file('cv_path')->store('cvs', 'public');
+            }
 
-        if ($request->hasFile('portfolio_path')) {
-            $validated['portfolio_path'] = $request->file('portfolio_path')->store('portfolios', 'public');
-        }
+            if ($request->hasFile('portfolio_path')) {
+                $validated['portfolio_path'] = $request->file('portfolio_path')->store('portfolios', 'public');
+            }
 
-        Applicant::create($validated);
+            Applicant::create($validated);
+        } catch (\Exception $e) {
+            return redirect()->route('applicant.form')
+                ->withInput()
+                ->withErrors(['cv_path' => 'حدث خطأ أثناء حفظ الملف. يرجى المحاولة مرة أخرى.']);
+        }
 
         return redirect()->route('applicant.success');
     }
